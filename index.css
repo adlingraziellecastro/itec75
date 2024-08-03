@@ -1,0 +1,21 @@
+
+
+.row {
+    padding-top: 75px;
+    padding-left: 75px;
+    padding-right: 75px;
+}
+.info {
+    padding: 15px;
+}
+
+.profile-icon
+{
+    font-size:125px;
+    float: left;
+}
+
+.name {
+    padding-top: 75px;
+    padding-left: 145px;
+}
