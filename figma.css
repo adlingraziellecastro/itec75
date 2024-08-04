@@ -1,0 +1,124 @@
+.bdy-bg {
+    background-color: #110E1B;
+    color: white;
+} 
+.navbar .btn {
+    background-color: #7C162E;
+    color: #fff;
+    padding: 8px 13px;
+    margin-left: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2em;
+    cursor: default;
+}
+.navbar .btn:hover {
+    background-color: #c9302c;
+    color: #fff;
+    cursor: default;
+}
+.container {
+    padding: 20px 0;
+}
+.nvbr {
+    background-color: #191528;
+}
+.nav-links {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 15px;
+    cursor: default;
+    transition: font-size 0.5s ease;
+}
+.nav-links a:hover {
+    text-decoration: underline;
+    font-size: 18px;
+    ;
+}
+.navbar-brand {
+    font-family: 'Playfair Display SC';
+    font-size: 30px;
+}
+.detail {
+    font-size: 20px;
+    font-family: 'Lato';
+    text-align: justify;
+}
+
+.content1 {
+    background-image: url(4.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: black;
+}
+.content1 img {
+    max-width: 100%;
+    height: auto;
+}
+.content1 .btn {
+    background-color: #7C162E;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2em;
+    cursor: default;
+}
+.content1 .btn:hover {
+    background-color: #c9302c;
+    color: #fff;
+}
+.content2 {
+    background-color: #5C162E;
+    color: white;
+}
+.content2 img {
+    max-width: 100%;
+    height: auto;
+}
+
+.content3 {
+    background-color: #191528;
+}
+.content3 p{
+    font-size: 40px;
+    font-family: 'Playfair Display';
+    text-align: center;
+}
+.content3 .btn {
+    background-color: #7C162E;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2em;  
+}
+.content3 .btn:hover {
+    background-color: #c9302c;
+    color: #fff;
+    cursor: default;
+}
+.footer {
+    background-color: #5C162E;
+    color: #fff;
+    padding: 50px 30px;
+    text-align: left;
+}
+.footer a {
+    color: #fff;
+    text-decoration: none;
+    cursor: default;
+}
+.footer a:hover {
+    text-decoration: none;
+}
+.company {
+    font-family: 'Roboto Slab';
+    font-size: 20px;
+}
