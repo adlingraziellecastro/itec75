@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login</title>
+    <title>Register</title>
     <!--LINKS HERE-->
     <link rel="stylesheet" href="registration.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -36,7 +36,7 @@
           border-radius: 20px;
           border: 1px solid #ccc;
         }
-
+        
         .form-container input::placeholder {
           color: #000000;
           font-size: 15px;
@@ -67,33 +67,43 @@
         }
 
         .image-box img {
-          width: 450px;
-          height: 450px;
-          object-fit: cover;
-          border-radius: 0px 10px 10px 0px;
+            width: 450px;
+            border-radius: 0px 10px 10px 0px;
         }
     </style>
 </head>
 <body style="background-color: #5C162E;">
 <div class="container form-container">
-    <div class="row justify-content-center" style="background-color: #EADEDA; border-radius: 10px; box-shadow: 1px 1px 5px 0px #191528; height: 450px">
+    <div class="row justify-content-center" style="background-color: #EADEDA; border-radius: 10px; box-shadow: 1px 1px 5px 0px #191528;">
         <div class="col-md-6 d-flex justify-content-center" style="margin-top: 50px;">
             <div class="form-box">
                 <form method="post" action="login.php">
                 <?php include('errors.php'); ?>
-                    <h3 class="text-center" style="font-family: 'Playfair Display'; font-size: 30px;">Login</h3>
+                    <h3 class="text-center" style="font-family: 'Playfair Display'; font-size: 30px;">Register</h3>
                     <div class="form-group">
-                        <label for="identifier">Email or Phone Number</label>
-                        <input type="text" class="form-control" id="identifier" placeholder="Enter your email or phone number" name="identifier" required>
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter your name" name="name" required>
                     </div>
                     <div class="form-group">
-                        <label for="password">Email address</label>
-                        <input type="password" class="form-control" id="password" placeholder="Enter your password" name="password" required>
+                        <label for="email">Email address</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" name="phonenumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Enter your password" name="password1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Confirm Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Enter your password" name="password2" required>
                     </div>
                     <center>
-                    <button type="submit" class="btn" name="login_user">Submit</button>
+                    <button type="submit" class="btn" name="reg_user">Submit</button>
                     </center>
-                    <p>Don't have account yet? <a href="registration.php" style="color: #191528; font-weight: bolder;">Register</a> here.</p>
+                    <p>Already have an account? <a href="login.php" style="color: #191528; font-weight: bolder;">Login</a> here.</p>
                 </form>
             </div>
         </div>

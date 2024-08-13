@@ -1,106 +1,72 @@
 <?php
 session_start();
+$con = mysqli_connect("localhost", "root", "", "db_enchanteparfum");
+$errors = array();
 
-
-$username = "";
-$email    = "";
-$errors = array(); 
-
-// connect to the database
-$db = mysqli_connect('localhost', 'root', '', 'registration');
-
-// REGISTER USER
+// REGISTRATION ACTIVITY
 if (isset($_POST['reg_user'])) {
+    $email = mysqli_real_escape_string($con, $_POST['email']);
+    $phonenumber = mysqli_real_escape_string($con, $_POST['phonenumber']);
+    $name = mysqli_real_escape_string($con, $_POST['name']);
+    $password1 = mysqli_real_escape_string($con, $_POST['password1']);
+    $password2 = mysqli_real_escape_string($con, $_POST['password2']);
 
-  // receive all input values from the form
-  $username = mysqli_real_escape_string($db, $_POST['username']);
-  $email = mysqli_real_escape_string($db, $_POST['email']);
-  $password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
-  $password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
+    $result = mysqli_query($con, "SELECT * FROM enchanteparfum_users WHERE email='$email' OR phonenumber='$phonenumber'");
+    $user = mysqli_fetch_assoc($result);
 
-
-  if (empty($username)) {
-     array_push($errors, "Username is required"); 
+    if ($user) {
+        if ($user['email'] === $email) {
+            array_push($errors, "Email already exists!");
+        }
+        if ($user['phone'] === $phone) {
+            array_push($errors, "Phone number already exists!");
+        }
+    } else {
+        if ($password1 != $password2) {
+            array_push($errors, "Passwords do not match!");
+        } else {
+            $password = password_hash($password1, PASSWORD_DEFAULT);
+            mysqli_query($con, "INSERT INTO enchanteparfum_users (email, phonenumber, name, password) VALUES ('$email', '$phonenumber', '$name', '$password')");
+            ?>
+            <script>
+                alert("Registration Successful");
+                window.location = "login.php";
+            </script>
+            <?php
+            exit();
+        }
     }
-  if (empty($email)) { 
-    array_push($errors, "Email is required"); 
-  }
-  if (empty($password_1)) { 
-    array_push($errors, "Password is required");
-   }
-  if ($password_1 != $password_2) {
-        array_push($errors, "Passwords do not match");
-  }
-
-  // first check the database to make sure 
-  // a user does not already exist with the same username and/or email
-  $user_check_query = "SELECT * FROM users WHERE username='$username' OR email='$email' LIMIT 1";
-  $result = mysqli_query($db, $user_check_query);
-  $user = mysqli_fetch_assoc($result);
-  
-  if ($user) { // if user exists
-    if ($user['username'] === $username) {
-      array_push($errors, "Username already exists");
-    }
-
-    if ($user['email'] === $email) {
-      array_push($errors, "email already exists");
-    }
-  }
-
-  // Finally, register user if there are no errors in the form
-  if (count($errors) == 0) {
-        $password = md5($password_1);//encrypt the password before saving in the database
-
-        $query = "INSERT INTO users (username, email, password) 
-                        VALUES('$username', '$email', '$password')";
-        mysqli_query($db, $query);
-        ?>
-        <script>
-            alert("Registered!");
-            window.location="login.php";
-        </script>
-        <?php
-  }
-  else {
-          // Display errors if registration fails
-        ?>
-        <script>
-            alert("<?php echo implode('\n', $errors); ?>");
-            window.location="register.php";
-        </script>
-        <?php
-  }
 }
 
-
-// LOGIN USER
+// LOGIN ACTIVITY
 if (isset($_POST['login_user'])) {
+    $identifier = mysqli_real_escape_string($con, $_POST['identifier']); // This can be either email or phone number
+    $password = mysqli_real_escape_string($con, $_POST['password']);
+    $user = "";
+    $row = "";
 
-  $username = mysqli_real_escape_string($db, $_POST['username']);
-  $password = mysqli_real_escape_string($db, $_POST['password']);
+    $result = mysqli_query($con, "SELECT * FROM enchanteparfum_users WHERE email='$identifier' OR phonenumber='$identifier'");
 
-  if (empty($username)) array_push($errors, "Username is required");
-  if (empty($password)) array_push($errors, "Password is required");
-
-  if (count($errors) == 0) {
-     
-      $query = "SELECT * FROM users WHERE username='$username'";
-      $result = mysqli_query($db, $query);
-
-
-      if (mysqli_num_rows($result) == 1) {
-          $user = mysqli_fetch_assoc($result);
-          if (md5($password) === $user['password']) { // Consider using password_hash() and password_verify()
-              $_SESSION['username'] = $username;
-              $_SESSION['success'] = "You are now logged in";
-              header('location: blog.php');
-              exit();
-          } else {
-              array_push($errors, "Wrong password");
-          }
-      } else {
-          array_push($errors, "User does not exist");
-      }    
-  }
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_array($result);
+        if ($identifier === $row['email'] || $identifier === $row['phonenumber']) {
+            if (password_verify($password, $row['password'])) {
+                $_SESSION['user_id'] = $row['user_id'];
+                ?>
+                <script>
+                    alert("Login Successful");
+                    window.location = "figma.html";
+                </script>
+                <?php
+                exit();
+            } else {
+                array_push($errors, "Wrong password");
+            }
+        } else {
+            array_push($errors, "Account does not exist!");
+        }
+    } else {
+        array_push($errors, "Account does not exist!");
+    }
 }
+?>
