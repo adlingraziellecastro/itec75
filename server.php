@@ -69,4 +69,20 @@ if (isset($_POST['login_user'])) {
         array_push($errors, "Account does not exist!");
     }
 }
+
+//ADDING TO CART
+if (isset($_POST['add-to-cart'])) {
+    $user_id = $_SESSION['user_id'];
+    $prod_id = mysqli_real_escape_string($con, $_POST['prod_id']);
+        $result = mysqli_query($con, "SELECT * FROM enchanteparfum_cart WHERE user_id='$user_id' AND prod_id='$prod_id'");
+        if (mysqli_num_rows($result) == 1) {
+            mysqli_query($con, "INSERT INTO  enchanteparfum_cart (user_id, prod_id) VALUES ('$user_id', '$prod_id')");
+        }
+}
+
+//REMOVING PRODUCT FROM CART
+if (isset($_POST['remove'])) {
+    
+}
+
 ?>
